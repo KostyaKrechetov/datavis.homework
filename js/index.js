@@ -133,17 +133,17 @@ loadData().then(data => {
                 d3.selectAll('circle').style('opacity', 0);
 
                 d3.selectAll('rect').filter(d => d['region'] == selectedRegion).style('opacity', 1);
-                d3.selectAll('circle').filter(d => d['region'] == selectedRegion).style('opacity', 0.7);
+                d3.selectAll('circle').filter(d => d['region'] == selectedRegion).style('opacity', 0.75);
             } else {
                 d3.selectAll('rect').style('opacity', 1);
-                d3.selectAll('circle').style('opacity', 0.7);
+                d3.selectAll('circle').style('opacity', 0.75);
                 selectedRegion = null;
             }
         });
 
         if (selectedRegion != null) {
             d3.selectAll('circle').style('opacity', 0);
-            d3.selectAll('circle').filter(d => d['region'] == selectedRegion).style('opacity', 0.7);
+            d3.selectAll('circle').filter(d => d['region'] == selectedRegion).style('opacity', 0.75);
         }
 
         return;
@@ -216,14 +216,21 @@ loadData().then(data => {
         scatterPlot.selectAll('circle').on('click', function (selectedCircle) {
             if (selectedCountry != selectedCircle['country']) {
                 selectedCountry = selectedCircle['country'];
-                d3.selectAll('circle').style('stroke-width', 1);
+                d3.selectAll('circle')
+                    .style('stroke-width', 1)
+                    .style('opacity', 0.4);
                 this.parentNode.appendChild(this);
-                d3.select(this).style('stroke-width', 3);
+                d3.select(this)
+                    .style('stroke-width', 3)
+                    .style('opacity', 0.85);
                 updateLinearPlot();
 
                 lineChart.attr('visibility', 'show')
             } else {
-                d3.selectAll('circle').style('stroke-width', 1);
+                d3.selectAll('circle')
+                    .style('stroke-width', 1)
+                    .style('opacity', 0.75);
+
                 selectedCountry = null;
 
                 lineChart.attr('visibility', 'hidden')
